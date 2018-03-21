@@ -2,7 +2,7 @@
 #include "LineCurve.h"
 #include "OBJObject.h"
 #include "Particles.h"
-#include "Cube.h"
+
 #define STB_IMAGE_IMPLEMENTATION
 //#include "stb_image.h"
 
@@ -17,7 +17,7 @@ std::vector<glm::vec3> cindices;
 GLuint CVAO,CVBO,CEBO,DVAO,DFBO,PVAO,DM;
 GLuint uProjection, uModelview,umodel;
 
-Cube * cube;
+//skybox * box;
 OBJObject * antenna;
 OBJObject * head;
 OBJObject * body;
@@ -35,7 +35,7 @@ GLint shader_s;
 int Movement=0;
 Particles * part;
 int move =0;
-GLuint depthM;
+GLuint depthMap;
 double xtrack=320.0;
 double ytrack=240.0;
 glm::vec3 axtrack;
@@ -51,8 +51,7 @@ int fun = 0;
 int trackmode=0;
 int blood = 0;
 float radi = 12.5f;
-int gray=0;
-GLuint depthMFBO;
+GLuint depthMapFBO;
 GLuint lshader;
 
 
@@ -273,9 +272,8 @@ void Window::initialize_objects()
         c4 = new LineCurve(allfcp);
     
     c5 = new LineCurve(allfcpxx);
-    cube = new Cube();
     
-    const char * torsop = "/Users/ZhongYu/Google Drive/UCSD Academics/2018 Winter/CSE 167/Week 10/CSE167Collab/bunny.obj";
+    const char * torsop = "/Users/ZhongYu/Desktop/bunny.obj";
     //cube = new Cube();
     // box = new skybox();
     // antenna = new OBJObject(antennap, 0.0f);
@@ -286,11 +284,10 @@ void Window::initialize_objects()
     body->toWorld = glm::translate(glm::mat4(1.0f), translate_offset);
     shaderProgram = LoadShaders(VERTEX_SHADER_PATH, FRAGMENT_SHADER_PATH);
 //    shader = LoadShaders(VERTEX_PATH, FRAGMENT_PATH);
-    shader_d = LoadShaders(VERTEX_PATH_d, FRAGMENT_PATH_d);
+
     shader_s = LoadShaders(VERTEX_PATH_s, FRAGMENT_PATH_s);
     lshader = LoadShaders(VERTEX_PATH_sl,FRAGMENT_PATH_sl);
     pshader = LoadShaders(VERTEX_PATH_pl,FRAGMENT_PATH_pl);
-    
    // glUniform1f(glGetUniformLocation(shaderProgram, "material.flag"), 1);
     glGenVertexArrays(1, &baseVAO);
     glGenBuffers(1, &baseVBO);
@@ -305,22 +302,23 @@ void Window::initialize_objects()
     glBindVertexArray(0);
     
     
-    //DEPTH MAP FROM TUTORIAL
-    glGenFramebuffers(1, &depthMFBO);
     
-    glGenTextures(1, &depthM);
-    glBindTexture(GL_TEXTURE_2D, depthM);
+    glGenFramebuffers(1, &depthMapFBO);
+    
+    glGenTextures(1, &depthMap);
+    glBindTexture(GL_TEXTURE_2D, depthMap);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, 640, 480, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
+    //    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    //    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
     float c[]={1,1,1,1};
     //c = {1,1,1,1};
     glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, c);
-    glBindFramebuffer(GL_FRAMEBUFFER, depthMFBO);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthM, 0);
+    glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
     glDrawBuffer(GL_NONE);
     glReadBuffer(GL_NONE);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -347,15 +345,10 @@ void Window::clean_up()
     delete(c2);
     delete(c3);
     delete(c4);
-    delete (c5);
     delete(body);
     delete(part);
-    delete cube;
     glDeleteProgram(shaderProgram);
     glDeleteProgram(shader);
-    glDeleteProgram(pshader);
-    glDeleteProgram(shader_d);
-    glDeleteProgram(shader_s);
 }
 
 GLFWwindow* Window::create_window(int width, int height)
@@ -452,7 +445,7 @@ void Window::display_callback(GLFWwindow* window)
     glUniformMatrix4fv(glGetUniformLocation(shader_s, "space"), 1,GL_FALSE, &space[0][0]);
     ///
     glViewport(0, 0, 640, 480);
-    glBindFramebuffer(GL_FRAMEBUFFER, depthMFBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
     glClear(GL_DEPTH_BUFFER_BIT);
     
     glUseProgram(shader_s);
@@ -460,7 +453,7 @@ void Window::display_callback(GLFWwindow* window)
     // umodel = glGetUniformLocation(shaderProgram, "model");
     glUniformMatrix4fv(glGetUniformLocation(shader_s, "model"), 1, GL_FALSE, &model[0][0]);
     glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, depthM);
+    glBindTexture(GL_TEXTURE_2D, depthMap);
     
     //glBindVertexArray(baseVAO);
     //glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -488,15 +481,10 @@ void Window::display_callback(GLFWwindow* window)
     glViewport(0, 0, 640, 480);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    if(gray==1){
-        
-        glUseProgram(shader_d);
-        
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, depthM);
-        cube->draw(shader_d);
-    }
-    if(gray==0){
+    // 2. render scene as normal using the generated depth/shadow map
+    // --------------------------------------------------------------
+    glViewport(0, 0, 640, 480);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glUseProgram(shaderProgram);
     ////
     glUniform3f(glGetUniformLocation(shaderProgram, "viewPos"), cam_pos.x,cam_pos.y,cam_pos.z);
@@ -532,7 +520,6 @@ void Window::display_callback(GLFWwindow* window)
     {
         blood = 1;
         part->draw(pshader);
-    }
     }
     glfwPollEvents();
     // Swap buffers
@@ -593,10 +580,7 @@ void Window::key_callback(GLFWwindow* window, int key, int scancode, int action,
         {
             r = 1-r;
         }
-        if (key==GLFW_KEY_T)
-        {
-            gray = 1-gray;
-        }
+        
         if (key==GLFW_KEY_1)
         {
             //normal coloring

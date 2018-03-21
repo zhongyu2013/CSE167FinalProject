@@ -13,14 +13,12 @@
 		12A0DF2C20609A3D00FC4603 /* LineCurve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12A0DF1C20609A3C00FC4603 /* LineCurve.cpp */; };
 		12A0DF3220609DB000FC4603 /* libglfw.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A0DF3020609B3500FC4603 /* libglfw.3.2.dylib */; };
 		12A0DF3320609F5800FC4603 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A0DF2E20609B1200FC4603 /* OpenGL.framework */; };
+		12C774DE206305560015709A /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12C774DC206305560015709A /* Window.cpp */; };
 		12FEA6F42061B46C003C8AD9 /* OBJObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12FEA6EB2061B46B003C8AD9 /* OBJObject.cpp */; };
 		12FEA6F52061B46C003C8AD9 /* Firework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12FEA6EC2061B46B003C8AD9 /* Firework.cpp */; };
 		12FEA6F62061B46C003C8AD9 /* Cube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12FEA6F02061B46C003C8AD9 /* Cube.cpp */; };
-		12FEA6F92061BA03003C8AD9 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12FEA6F72061BA03003C8AD9 /* Window.cpp */; };
 		12FEA6FA2061BA85003C8AD9 /* sim.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 12FEA6EA2061B46B003C8AD9 /* sim.frag */; };
 		12FEA6FB2061BA85003C8AD9 /* sim.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 12FEA6EE2061B46C003C8AD9 /* sim.vert */; };
-		12FEA6FC2061BA85003C8AD9 /* toon.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 12FEA6F12061B46C003C8AD9 /* toon.frag */; };
-		12FEA6FD2061BA85003C8AD9 /* toon.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 12FEA6EF2061B46C003C8AD9 /* toon.vert */; };
 		12FEA6FE2061BA85003C8AD9 /* lshader.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 12A0DF1D20609A3C00FC4603 /* lshader.frag */; };
 		12FEA6FF2061BA85003C8AD9 /* lshader.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 12A0DF1B20609A3C00FC4603 /* lshader.vert */; };
 		12FEA7002061BA85003C8AD9 /* pshader.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 12A0DF2520609A3D00FC4603 /* pshader.frag */; };
@@ -39,8 +37,6 @@
 				12FEA7042061BCE6003C8AD9 /* shader.frag in CopyFiles */,
 				12FEA6FA2061BA85003C8AD9 /* sim.frag in CopyFiles */,
 				12FEA6FB2061BA85003C8AD9 /* sim.vert in CopyFiles */,
-				12FEA6FC2061BA85003C8AD9 /* toon.frag in CopyFiles */,
-				12FEA6FD2061BA85003C8AD9 /* toon.vert in CopyFiles */,
 				12FEA6FE2061BA85003C8AD9 /* lshader.frag in CopyFiles */,
 				12FEA6FF2061BA85003C8AD9 /* lshader.vert in CopyFiles */,
 				12FEA7002061BA85003C8AD9 /* pshader.frag in CopyFiles */,
@@ -69,17 +65,17 @@
 		12A0DF2620609A3D00FC4603 /* LineCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineCurve.h; sourceTree = "<group>"; };
 		12A0DF2E20609B1200FC4603 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		12A0DF3020609B3500FC4603 /* libglfw.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.2.dylib; path = "../../../../../../../../Developer/glfw-3.2.1/src/libglfw.3.2.dylib"; sourceTree = "<group>"; };
+		12C774DB206305560015709A /* toon.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = toon.frag; sourceTree = "<group>"; };
+		12C774DC206305560015709A /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
+		12C774DD206305560015709A /* toon.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = toon.vert; sourceTree = "<group>"; };
 		12FEA6EA2061B46B003C8AD9 /* sim.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = sim.frag; sourceTree = "<group>"; };
 		12FEA6EB2061B46B003C8AD9 /* OBJObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OBJObject.cpp; sourceTree = "<group>"; };
 		12FEA6EC2061B46B003C8AD9 /* Firework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Firework.cpp; sourceTree = "<group>"; };
 		12FEA6ED2061B46C003C8AD9 /* OBJObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBJObject.h; sourceTree = "<group>"; };
 		12FEA6EE2061B46C003C8AD9 /* sim.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = sim.vert; sourceTree = "<group>"; };
-		12FEA6EF2061B46C003C8AD9 /* toon.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = toon.vert; sourceTree = "<group>"; };
 		12FEA6F02061B46C003C8AD9 /* Cube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cube.cpp; sourceTree = "<group>"; };
-		12FEA6F12061B46C003C8AD9 /* toon.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = toon.frag; sourceTree = "<group>"; };
 		12FEA6F22061B46C003C8AD9 /* Firework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Firework.h; sourceTree = "<group>"; };
 		12FEA6F32061B46C003C8AD9 /* Cube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cube.h; sourceTree = "<group>"; };
-		12FEA6F72061BA03003C8AD9 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
 		12FEA6F82061BA03003C8AD9 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -116,7 +112,9 @@
 		12A0DF0B20609A0E00FC4603 /* CSE167Collab */ = {
 			isa = PBXGroup;
 			children = (
-				12FEA6F72061BA03003C8AD9 /* Window.cpp */,
+				12C774DB206305560015709A /* toon.frag */,
+				12C774DD206305560015709A /* toon.vert */,
+				12C774DC206305560015709A /* Window.cpp */,
 				12FEA6F82061BA03003C8AD9 /* Window.h */,
 				12FEA6F02061B46C003C8AD9 /* Cube.cpp */,
 				12FEA6F32061B46C003C8AD9 /* Cube.h */,
@@ -126,8 +124,6 @@
 				12FEA6ED2061B46C003C8AD9 /* OBJObject.h */,
 				12FEA6EA2061B46B003C8AD9 /* sim.frag */,
 				12FEA6EE2061B46C003C8AD9 /* sim.vert */,
-				12FEA6F12061B46C003C8AD9 /* toon.frag */,
-				12FEA6EF2061B46C003C8AD9 /* toon.vert */,
 				12A0DF1C20609A3C00FC4603 /* LineCurve.cpp */,
 				12A0DF2620609A3D00FC4603 /* LineCurve.h */,
 				12A0DF1D20609A3C00FC4603 /* lshader.frag */,
@@ -215,7 +211,7 @@
 				12FEA6F62061B46C003C8AD9 /* Cube.cpp in Sources */,
 				12FEA6F42061B46C003C8AD9 /* OBJObject.cpp in Sources */,
 				12FEA6F52061B46C003C8AD9 /* Firework.cpp in Sources */,
-				12FEA6F92061BA03003C8AD9 /* Window.cpp in Sources */,
+				12C774DE206305560015709A /* Window.cpp in Sources */,
 				12A0DF2B20609A3D00FC4603 /* shader.cpp in Sources */,
 				12A0DF2C20609A3D00FC4603 /* LineCurve.cpp in Sources */,
 				12A0DF2A20609A3D00FC4603 /* Particles.cpp in Sources */,

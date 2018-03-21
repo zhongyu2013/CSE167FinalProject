@@ -35,11 +35,11 @@ public:
 // Define the coordinates and indices needed to draw the cube. Note that it is not necessary
 // to use a 2-dimensional array, since the layout in memory is the same as a 1-dimensional array.
 // This just looks nicer since it's easy to tell what coordinates/indices belong where.
-const GLfloat vertices[8][3] = {
-	// "Front" vertices
-	{-2.0, -2.0,  2.0}, {2.0, -2.0,  2.0}, {2.0,  2.0,  2.0}, {-2.0,  2.0,  2.0},
-	// "Back" vertices
-	{-2.0, -2.0, -2.0}, {2.0, -2.0, -2.0}, {2.0,  2.0, -2.0}, {-2.0,  2.0, -2.0}
+const GLfloat vertices[] = {
+    -2.0f,  2.0f, 0.0f, 0.0f, 1.0f,
+    -2.0f, -2.0f, 0.0f, 0.0f, 0.0f,
+    2.0f,  2.0f, 0.0f, 1.0f, 1.0f,
+    2.0f, -2.0f, 0.0f, 1.0f, 0.0f
 };
 
 // Note that GL_QUADS is deprecated in modern OpenGL (and removed from OSX systems).
