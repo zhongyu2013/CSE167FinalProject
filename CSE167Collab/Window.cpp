@@ -2,7 +2,7 @@
 #include "LineCurve.h"
 #include "OBJObject.h"
 #include "Particles.h"
-
+#include "Cube.h"
 #define STB_IMAGE_IMPLEMENTATION
 //#include "stb_image.h"
 
@@ -22,6 +22,7 @@ OBJObject * antenna;
 OBJObject * head;
 OBJObject * body;
 OBJObject * limb;
+Cube * cube;
 //Curve * curve;
 LineCurve * c1;
 LineCurve * c2;
@@ -47,6 +48,8 @@ int sw = 0;
 int swn = 0;
 int render = 0;
 int r = 0;
+int gray=1;
+
 int fun = 0;
 int trackmode=0;
 int blood = 0;
@@ -272,7 +275,8 @@ void Window::initialize_objects()
         c4 = new LineCurve(allfcp);
     
     c5 = new LineCurve(allfcpxx);
-    
+    cube = new Cube();
+
     const char * torsop = "/Users/ZhongYu/Desktop/bunny.obj";
     //cube = new Cube();
     // box = new skybox();
@@ -284,7 +288,7 @@ void Window::initialize_objects()
     body->toWorld = glm::translate(glm::mat4(1.0f), translate_offset);
     shaderProgram = LoadShaders(VERTEX_SHADER_PATH, FRAGMENT_SHADER_PATH);
 //    shader = LoadShaders(VERTEX_PATH, FRAGMENT_PATH);
-
+shader_d = LoadShaders(VERTEX_PATH_d, FRAGMENT_PATH_d);
     shader_s = LoadShaders(VERTEX_PATH_s, FRAGMENT_PATH_s);
     lshader = LoadShaders(VERTEX_PATH_sl,FRAGMENT_PATH_sl);
     pshader = LoadShaders(VERTEX_PATH_pl,FRAGMENT_PATH_pl);
@@ -340,7 +344,7 @@ void Window::initialize_objects()
 void Window::clean_up()
 {
     //delete(box);
-    //delete(cube);
+    delete(cube);
     delete(c1);
     delete(c2);
     delete(c3);
@@ -477,14 +481,19 @@ void Window::display_callback(GLFWwindow* window)
     ///
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     
-    // reset viewport
+
+
     glViewport(0, 0, 640, 480);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
-    // 2. render scene as normal using the generated depth/shadow map
-    // --------------------------------------------------------------
-    glViewport(0, 0, 640, 480);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    if(gray==1){
+
+        glUseProgram(shader_d);
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, depthM);
+        cube->draw(shader_d);
+    }
+    if(gray==0){
     glUseProgram(shaderProgram);
     ////
     glUniform3f(glGetUniformLocation(shaderProgram, "viewPos"), cam_pos.x,cam_pos.y,cam_pos.z);
@@ -520,6 +529,7 @@ void Window::display_callback(GLFWwindow* window)
     {
         blood = 1;
         part->draw(pshader);
+    }
     }
     glfwPollEvents();
     // Swap buffers
@@ -629,6 +639,13 @@ void Window::key_callback(GLFWwindow* window, int key, int scancode, int action,
 //            P = glm::perspective(45.0f, (float)width / (float)height, 0.1f, 1000.0f);
 //            V = glm::lookAt(cam_pos, cam_look_at, cam_up);
 //        }
+        if (key==GLFW_KEY_T)
+        {
+
+            gray=1-gray;
+
+            
+        }
     }
     
 }
