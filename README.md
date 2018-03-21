@@ -1,4 +1,4 @@
-# CSE167FinalProject
+# CSE167 Final Project--"The Bunny and The Fan"
 
 
 ## The final codes are inside CSE167Collab folder.
