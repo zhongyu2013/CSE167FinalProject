@@ -23,7 +23,8 @@
 * d--Move the bunny to the right
 * q--Display the fan
 * r--Turn on the fan (¦3[▓▓▓▓▓]
-* 1--Normal Coloring
-* 2--Toon Shading
-* 3--Greyscale Coloring
+* 1--Normal coloring
+* 2--Toon shading
+* 3--Greyscale coloring
 * 4--Shadow mapping switch
+* Esc--Exit the program 
