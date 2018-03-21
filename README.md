@@ -23,6 +23,7 @@
 * d--Move the bunny to the right
 * q--Display the fan
 * r--Turn on the fan (¦3[▓▓▓▓▓]
+* t--Turn on the grayscale
 * 1--Normal coloring
 * 2--Toon shading
 * 3--Greyscale coloring
